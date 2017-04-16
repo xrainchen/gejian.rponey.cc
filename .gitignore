@@ -3,3 +3,18 @@
 ################################################################################
 
 /DTcms.API/bin/Debug
+/DTcms.API/obj/Debug
+/DTcms.BLL/bin/Debug
+/DTcms.BLL/obj/Debug
+/DTcms.Common/bin/Debug
+/DTcms.Common/obj/Debug
+/DTcms.DAL/bin/Debug
+/DTcms.DAL/obj/Debug
+/DTcms.DBUtility/bin/Debug
+/DTcms.DBUtility/obj/Debug
+/DTcms.Model/bin/Debug
+/DTcms.Model/obj/Debug
+/DTcms.Web/bin
+/DTcms.Web/obj/Debug
+/DTcms.Web.UI/bin/Debug
+/DTcms.Web.UI/obj/Debug
