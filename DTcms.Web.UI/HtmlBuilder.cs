@@ -41,7 +41,7 @@ namespace DTcms.Web.UI
 
             StringBuilder sbjson = new StringBuilder();
 
-       
+
             //获得URL配置列表
             BLL.url_rewrite bll = new BLL.url_rewrite();
             List<Model.url_rewrite> ls = (!string.IsNullOrEmpty(type)) ? bll.GetList(name, type) : bll.GetList(name);
@@ -184,7 +184,7 @@ namespace DTcms.Web.UI
                         string HTMLPattern = string.Format("{0}/{1}/{2}", DTKeys.DIRECTORY_REWRITE_HTML, lang, Utils.GetUrlExtension(string.Format(path, dt.Rows[i]["id"].ToString(), q), config.staticextension)); //替换扩展名
                         if (!string.IsNullOrEmpty(sburl.ToString()))
                             sburl.Append(",");
-                        sburl.AppendFormat(urlstr, config.webpath, lang, linkurl.Replace("&","^"), HTMLPattern);
+                        sburl.AppendFormat(urlstr, config.webpath, lang, linkurl.Replace("&", "^"), HTMLPattern);
                     }
                 }
             }
@@ -273,7 +273,8 @@ namespace DTcms.Web.UI
             {
                 return (pageCount += 1);
             }
-            else {
+            else
+            {
                 if (totalCount % pageSize == 0)
                     return pageCount;
             }
@@ -295,45 +296,52 @@ namespace DTcms.Web.UI
             string lang = DTRequest.GetQueryString("lang");
             string aspx_filename = DTRequest.GetQueryString("aspx_filename");
             string catalogue = DTRequest.GetQueryString("catalogue");
-           
+
             CreateIndexHtml(lang, aspx_filename, catalogue);
         }
         private void CreateIndexHtml(string lang, string aspx_filename, string catalogue)
         {
-            if (File.Exists(Utils.GetMapPath(config.webpath + aspx_filename.Substring(0, aspx_filename.IndexOf(".aspx") + 5))))
+            try
             {
-
-                string urlPath = config.webpath + aspx_filename.Replace("^", "&"); //文件相对路径
-                string htmlPath = config.webpath + catalogue; //保存相对路径
-                if (htmlPath.IndexOf(".") < 0)
-                    htmlPath = htmlPath + "index." + config.staticextension;
-                //检查目录是否存在
-                string directorystr = HttpContext.Current.Server.MapPath(htmlPath.Substring(0, htmlPath.LastIndexOf("/")));
-                if (!Directory.Exists(directorystr))
+                if (File.Exists(Utils.GetMapPath(config.webpath + aspx_filename.Substring(0, aspx_filename.IndexOf(".aspx") + 5))))
                 {
-                    Directory.CreateDirectory(directorystr);
+
+                    string urlPath = config.webpath + aspx_filename.Replace("^", "&"); //文件相对路径
+                    string htmlPath = config.webpath + catalogue; //保存相对路径
+                    if (htmlPath.IndexOf(".") < 0)
+                        htmlPath = htmlPath + "index." + config.staticextension;
+                    //检查目录是否存在
+                    string directorystr = HttpContext.Current.Server.MapPath(htmlPath.Substring(0, htmlPath.LastIndexOf("/")));
+                    if (!Directory.Exists(directorystr))
+                    {
+                        Directory.CreateDirectory(directorystr);
+                    }
+                    string linkwebsite = HttpContext.Current.Request.Url.Authority;
+
+                    Model.channel_site modelchannelsite = objchannel_site.GetModel(lang);
+                    if (modelchannelsite != null && !string.IsNullOrEmpty(modelchannelsite.domain))
+                        linkwebsite = modelchannelsite.domain;
+                    System.Net.WebRequest request = System.Net.WebRequest.Create("http://" + linkwebsite + urlPath);
+                    System.Net.WebResponse response = request.GetResponse();
+                    System.IO.Stream stream = response.GetResponseStream();
+                    System.IO.StreamReader streamreader = new System.IO.StreamReader(stream, System.Text.Encoding.GetEncoding("utf-8"));
+                    string content = streamreader.ReadToEnd();
+                    using (StreamWriter sw = new StreamWriter(Utils.GetMapPath(htmlPath), false, Encoding.UTF8))
+                    {
+
+                        sw.WriteLine(content);
+                        sw.Flush();
+                        sw.Close();
+                    }
                 }
-                string linkwebsite = HttpContext.Current.Request.Url.Authority;
-             
-                Model.channel_site modelchannelsite =  objchannel_site.GetModel(lang);
-                if (modelchannelsite != null&&!string.IsNullOrEmpty(modelchannelsite.domain))
-                    linkwebsite = modelchannelsite.domain;
-                System.Net.WebRequest request = System.Net.WebRequest.Create("http://" + linkwebsite + urlPath);
-                System.Net.WebResponse response = request.GetResponse();
-                System.IO.Stream stream = response.GetResponseStream();
-                System.IO.StreamReader streamreader = new System.IO.StreamReader(stream, System.Text.Encoding.GetEncoding("utf-8"));
-                string content = streamreader.ReadToEnd();
-                using (StreamWriter sw = new StreamWriter(Utils.GetMapPath(htmlPath), false, Encoding.UTF8))
+                else
                 {
-
-                    sw.WriteLine(content);
-                    sw.Flush();
-                    sw.Close();
+                    HttpContext.Current.Response.Write("1");//找不到生成的模版！
                 }
             }
-            else
+            catch (Exception ex)
             {
-                HttpContext.Current.Response.Write("1");//找不到生成的模版！
+                RPoney.Log.LoggerManager.Error(GetType().Name, "生产模版错误", ex);
             }
         }
         #endregion

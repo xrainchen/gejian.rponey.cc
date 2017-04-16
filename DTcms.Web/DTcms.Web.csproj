@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DTcms.Web</RootNamespace>
     <AssemblyName>DTcms.Web</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>false</UseIISExpress>
     <SccProjectName>Svn</SccProjectName>
     <SccLocalPath>Svn</SccLocalPath>
@@ -24,6 +24,12 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,6 +39,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -41,29 +48,38 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\..\..\Lib.Framework\log4net\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.JScript" />
+    <Reference Include="RPoney.Framework">
+      <HintPath>..\..\..\..\..\..\Lib.Framework\Rponey.Framework\RPoney.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="RPoney.Log">
+      <HintPath>..\..\..\..\..\..\Lib.Framework\Rponey.Log\RPoney.Log.dll</HintPath>
+    </Reference>
     <Reference Include="Senparc.Weixin.MP, Version=4.11.2.31351, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Senparc.Weixin.MP.dll</HintPath>
     </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="admin\article\article_edit.aspx" />
@@ -211,6 +227,7 @@
     <Content Include="aspx\main\video_show.aspx" />
     <Content Include="aspx\plugin\feedback.aspx" />
     <Content Include="aspx\plugin\link.aspx" />
+    <Content Include="aspx\pudu\index.aspx" />
     <Content Include="crossdomain.xml" />
     <Content Include="css\image1.gif" />
     <Content Include="css\image2.gif" />
@@ -541,6 +558,32 @@
     <Content Include="templates\main\_header.html" />
     <Content Include="templates\main\_share_js.html" />
     <Content Include="templates\main\_ucenter_nav.html" />
+    <Content Include="templates\pudu\about.xml" />
+    <Content Include="templates\pudu\css\pudu.css" />
+    <Content Include="templates\pudu\Default.html" />
+    <Content Include="templates\pudu\images\about-banner.jpg" />
+    <Content Include="templates\pudu\images\about-banner.png" />
+    <Content Include="templates\pudu\images\banner.png" />
+    <Content Include="templates\pudu\images\contact-banner.png" />
+    <Content Include="templates\pudu\images\dashed.png" />
+    <Content Include="templates\pudu\images\highend-banner.png" />
+    <Content Include="templates\pudu\images\index-desc.png" />
+    <Content Include="templates\pudu\images\news-banner.png" />
+    <Content Include="templates\pudu\images\other-banner.png" />
+    <Content Include="templates\pudu\images\pd-logo.png" />
+    <Content Include="templates\pudu\images\periods-bg.png" />
+    <Content Include="templates\pudu\images\service-icon-1.png" />
+    <Content Include="templates\pudu\images\service-icon-2.png" />
+    <Content Include="templates\pudu\images\service-icon-3.png" />
+    <Content Include="templates\pudu\images\service-icon-4.png" />
+    <Content Include="templates\pudu\images\service-icon-5.png" />
+    <Content Include="templates\pudu\images\show-banner.png" />
+    <Content Include="templates\pudu\js\common.js" />
+    <Content Include="templates\pudu\js\default.js" />
+    <Content Include="templates\pudu\js\high-end.js" />
+    <Content Include="templates\pudu\js\pd-content.js" />
+    <Content Include="templates\pudu\_footer.html" />
+    <Content Include="templates\pudu\_header.html" />
     <Content Include="watermark.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1172,6 +1215,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="xmlconfig\alipaypc.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\RPoneyRedisLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Properties\PublishProfiles\gejian.rponey.cc.pubxml" />
+    <None Include="Properties\PublishProfiles\配置文件1.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
