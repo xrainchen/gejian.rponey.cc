@@ -560,7 +560,7 @@
     <Content Include="templates\main\_ucenter_nav.html" />
     <Content Include="templates\pudu\about.xml" />
     <Content Include="templates\pudu\css\pudu.css" />
-    <Content Include="templates\pudu\Default.html" />
+    <Content Include="templates\pudu\index.html" />
     <Content Include="templates\pudu\images\about-banner.jpg" />
     <Content Include="templates\pudu\images\about-banner.png" />
     <Content Include="templates\pudu\images\banner.png" />
@@ -584,6 +584,8 @@
     <Content Include="templates\pudu\js\pd-content.js" />
     <Content Include="templates\pudu\_footer.html" />
     <Content Include="templates\pudu\_header.html" />
+    <Content Include="templates\pudu\_script.html" />
+    <Content Include="templates\pudu\_style.html" />
     <Content Include="watermark.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

@@ -9,8 +9,8 @@ override protected void OnInit(EventArgs e)
 {
 
 	/* 
-		This page was created by DTcms Template Engine at 2015/5/15 1:37:44.
-		本页面代码由DTcms模板引擎生成于 2015/5/15 1:37:44. 
+		This page was created by DTcms Template Engine at 2017/4/17 22:54:59.
+		本页面代码由DTcms模板引擎生成于 2017/4/17 22:54:59. 
 	*/
 
 	base.OnInit(e);
@@ -195,7 +195,7 @@ override protected void OnInit(EventArgs e)
 	templateBuilder.Append(" 粤ICP备11064298号 DTcms版本号：");
 	templateBuilder.Append(Utils.GetVersion().ToString());
 
-	templateBuilder.Append(" 旗舰版</p>\r\n    <p>Copyright &copy; 2009-2015 dtcms.net Corporation,All Rights Reserved.</p>\r\n    <p><script src=\"http://s24.cnzz.com/stat.php?id=1996164&web_id=1996164&show=pic\" language=\"javascript\"></");
+	templateBuilder.Append("</p>\r\n    <p>Copyright &copy; 2009-2015 dtcms.net Corporation,All Rights Reserved.</p>\r\n    <p><script src=\"http://s24.cnzz.com/stat.php?id=1996164&web_id=1996164&show=pic\" language=\"javascript\"></");
 	templateBuilder.Append("script></p>\r\n  </div>\r\n</div>");
 
 
